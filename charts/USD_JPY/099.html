@@ -27,16 +27,22 @@
 .pbtri-right { border-left: 15px solid #ffffff; }
 .pbnav-cap { font: 600 11px/1 -apple-system, sans-serif; color: #e0e0e0; letter-spacing: 0.3px; }
 </style>
-<button class="pbnav pbnav-left"  title="前へ #098" onclick="location.href="../EUR_USD/098.html"">
+<button id="pbnav-prev" class="pbnav pbnav-left"  title="前へ #098">
   <span class="pbtri pbtri-left"></span><span class="pbnav-cap">#098</span>
 </button>
-<button class="pbnav pbnav-right"  title="次へ #100" onclick="location.href="../EUR_JPY/100.html"">
+<button id="pbnav-next" class="pbnav pbnav-right"  title="次へ #100">
   <span class="pbtri pbtri-right"></span><span class="pbnav-cap">#100</span>
 </button>
 <script>
 (function() {
   var prevUrl = "../EUR_USD/098.html";
   var nextUrl = "../EUR_JPY/100.html";
+  // クリックで前後ページへ (onclick属性のクォート衝突を避けるため addEventListener を使う)
+  var pb = document.getElementById('pbnav-prev');
+  var nb = document.getElementById('pbnav-next');
+  if (pb && prevUrl) { pb.addEventListener('click', function() { location.href = prevUrl; }); }
+  if (nb && nextUrl) { nb.addEventListener('click', function() { location.href = nextUrl; }); }
+  // キーボードの左右キーでも移動
   document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowLeft'  && prevUrl) { location.href = prevUrl; }
     if (e.key === 'ArrowRight' && nextUrl) { location.href = nextUrl; }
