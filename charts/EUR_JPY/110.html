@@ -26,6 +26,8 @@
 .pbtri-left  { border-right: 15px solid #ffffff; }
 .pbtri-right { border-left: 15px solid #ffffff; }
 .pbnav-cap { font: 600 11px/1 -apple-system, sans-serif; color: #e0e0e0; letter-spacing: 0.3px; }
+/* チャート本体(固定幅)を画面中央に寄せる。画面が狭い時は margin auto が 0 になり破綻しない */
+.plotly-graph-div { margin-left: auto !important; margin-right: auto !important; }
 </style>
 <button id="pbnav-prev" class="pbnav pbnav-left"  title="前へ #109">
   <span class="pbtri pbtri-left"></span><span class="pbnav-cap">#109</span>
