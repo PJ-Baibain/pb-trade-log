@@ -224,8 +224,8 @@
   </form>
 </div>
 
-<!-- ===== メインコンテンツ (認証成功まで非表示) ===== -->
-<div id="app" style="display:none;">
+<!-- ===== メインコンテンツ (login-screen が z-index:9999 で覆うので 初期から visible) ===== -->
+<div id="app">
 
 <div class="header-row">
   <div>
@@ -683,12 +683,13 @@ const LOGIN_ID = 'pudgy';
 const LOGIN_PW = '0616';
 
 function showApp() {
+  // app は常に visible (Plotly が正しい width で描画されるため)
+  // login-screen を非表示にするだけ
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').style.display = '';
 }
 function showLogin() {
+  // login-screen を表示 (z-index:9999 で app を覆い隠す)
   document.getElementById('login-screen').style.display = '';
-  document.getElementById('app').style.display = 'none';
 }
 function doLogout() {
   localStorage.removeItem('pb_logged_in');
