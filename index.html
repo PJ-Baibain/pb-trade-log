@@ -167,9 +167,64 @@
   a { color: var(--link); text-decoration: none; font-weight: 600; }
   a:hover { text-decoration: underline; }
   .count-info { color: var(--muted); font-size: 11px; padding: 8px; }
+
+  /* ===== ログイン画面 ===== */
+  #login-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #ffffff; display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+  }
+  .login-card {
+    background: #ffffff; padding: 40px 48px; border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08); border: 1px solid #e0e0e0;
+    width: 320px; max-width: 90%;
+  }
+  .login-card h2 {
+    margin: 0 0 24px 0; color: #000000; font-size: 18px; text-align: center;
+  }
+  .login-card label {
+    display: block; font-size: 12px; color: #666; margin: 12px 0 4px 0;
+  }
+  .login-card input {
+    width: 100%; padding: 10px 12px; font-size: 14px;
+    border: 1px solid #d0d0d0; border-radius: 4px; box-sizing: border-box;
+    outline: none;
+  }
+  .login-card input:focus { border-color: #000; }
+  .login-card button {
+    width: 100%; padding: 12px; margin-top: 20px;
+    background: #1a1a1a; color: #ffffff; border: none; border-radius: 4px;
+    font-size: 14px; cursor: pointer;
+  }
+  .login-card button:hover { background: #333; }
+  #login-error {
+    color: #ff1744; font-size: 12px; margin-top: 12px; text-align: center;
+    min-height: 16px;
+  }
+  .logout-link {
+    color: #666; font-size: 11px; text-decoration: none; margin-left: 16px;
+    cursor: pointer; align-self: center;
+  }
+  .logout-link:hover { color: #1a1a1a; text-decoration: underline; }
 </style>
 </head>
 <body class="mode-personal">
+
+<!-- ===== ログイン画面 (デフォルト表示) ===== -->
+<div id="login-screen">
+  <form class="login-card" id="login-form">
+    <h2>Algo trade logs</h2>
+    <label for="login-id">ID</label>
+    <input type="text" id="login-id" autocomplete="username" autofocus>
+    <label for="login-pw">Password</label>
+    <input type="password" id="login-pw" autocomplete="current-password">
+    <button type="submit">ログイン</button>
+    <div id="login-error"></div>
+  </form>
+</div>
+
+<!-- ===== メインコンテンツ (認証成功まで非表示) ===== -->
+<div id="app" style="display:none;">
 
 <div class="header-row">
   <div>
@@ -179,6 +234,7 @@
   <div class="mode-toggle">
     <button class="active" data-mode="personal">個人<span class="sub">¥5M / 3.5%</span></button>
     <button data-mode="corporate">法人<span class="sub">¥10M / 2.5%</span></button>
+    <a class="logout-link" onclick="doLogout()">ログアウト</a>
   </div>
 </div>
 
@@ -616,6 +672,53 @@ drawEquityChart();
 drawPipsChart();
 updateSortArrows();
 renderTable();
+</script>
+
+</div><!-- /#app -->
+
+<!-- ===== 簡易ログイン JS ===== -->
+<script>
+const LOGIN_ID = 'pudgy';
+const LOGIN_PW = '0616';
+
+function showApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = '';
+}
+function showLogin() {
+  document.getElementById('login-screen').style.display = '';
+  document.getElementById('app').style.display = 'none';
+}
+function doLogout() {
+  localStorage.removeItem('pb_logged_in');
+  location.reload();
+}
+
+// 認証チェック (DOMContentLoaded より早く実行)
+(function() {
+  if (localStorage.getItem('pb_logged_in') === '1') {
+    showApp();
+  } else {
+    showLogin();
+  }
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('login-form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const id = document.getElementById('login-id').value;
+      const pw = document.getElementById('login-pw').value;
+      if (id === LOGIN_ID && pw === LOGIN_PW) {
+        localStorage.setItem('pb_logged_in', '1');
+        location.reload();
+      } else {
+        document.getElementById('login-error').textContent = 'IDまたはパスワードが正しくありません';
+      }
+    });
+  }
+});
 </script>
 
 </body>
