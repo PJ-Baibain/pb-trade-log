@@ -1,32 +1,32 @@
 {
   "period_start": "2025-11-01",
-  "period_end": "2026-06-12 09:15",
+  "period_end": "2026-06-12 09:30",
   "symbols": [
     "USD_JPY",
     "EUR_JPY",
     "EUR_USD"
   ],
   "total_trades": 153,
-  "win_rate_pct": 66.7,
-  "profit_factor": 3.76,
-  "total_pips": 4403.4,
-  "gross_win_pips": 5999.0,
-  "gross_loss_pips": 1595.6,
+  "win_rate_pct": 66.0,
+  "profit_factor": 3.7,
+  "total_pips": 4370.0,
+  "gross_win_pips": 5991.4,
+  "gross_loss_pips": 1621.4,
   "personal": {
     "initial_capital": 5000000,
-    "final_capital": 33286175,
-    "return_pct": 565.72,
-    "max_dd_yen": 9065301,
-    "max_dd_pct": 21.48,
+    "final_capital": 32818437,
+    "return_pct": 556.37,
+    "max_dd_yen": 9381943,
+    "max_dd_pct": 22.23,
     "risk_pct": 0.03
   },
   "corporate": {
     "initial_capital": 10000000,
-    "final_capital": 49125241,
-    "return_pct": 391.25,
-    "max_dd_yen": 10881603,
-    "max_dd_pct": 18.19,
+    "final_capital": 48549586,
+    "return_pct": 385.5,
+    "max_dd_yen": 11271289,
+    "max_dd_pct": 18.84,
     "risk_pct": 0.025
   },
-  "updated_at": "2026-06-12 09:15:03"
+  "updated_at": "2026-06-12 09:30:03"
 }
