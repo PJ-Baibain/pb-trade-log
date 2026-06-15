@@ -1,13 +1,13 @@
 {
   "period_start": "2025-11-01",
-  "period_end": "2026-06-16 08:15",
+  "period_end": "2026-06-16 08:30",
   "symbols": [
     "USD_JPY",
     "EUR_JPY",
     "EUR_USD"
   ],
-  "total_trades": 154,
-  "win_rate_pct": 66.2,
+  "total_trades": 155,
+  "win_rate_pct": 65.8,
   "profit_factor": 3.63,
   "total_pips": 4352.2,
   "gross_win_pips": 6009.8,
@@ -28,5 +28,5 @@
     "max_dd_pct": 19.51,
     "risk_pct": 0.025
   },
-  "updated_at": "2026-06-16 08:15:04"
+  "updated_at": "2026-06-16 08:30:04"
 }
