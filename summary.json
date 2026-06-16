@@ -1,6 +1,6 @@
 {
   "period_start": "2025-11-01",
-  "period_end": "2026-06-16 21:45",
+  "period_end": "2026-06-16 22:00",
   "symbols": [
     "USD_JPY",
     "EUR_JPY",
@@ -28,5 +28,5 @@
     "max_dd_pct": 19.51,
     "risk_pct": 0.025
   },
-  "updated_at": "2026-06-16 21:45:03"
+  "updated_at": "2026-06-16 22:00:04"
 }
