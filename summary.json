@@ -1,6 +1,6 @@
 {
   "period_start": "2025-11-04",
-  "period_end": "2026-06-30 21:15",
+  "period_end": "2026-06-30 21:30",
   "symbols": [
     "USD_JPY",
     "EUR_JPY",
@@ -29,5 +29,5 @@
     "risk_pct": 0.04
   },
   "realistic": true,
-  "updated_at": "2026-06-30 21:15:08"
+  "updated_at": "2026-06-30 21:30:09"
 }
