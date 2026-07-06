@@ -1,0 +1,64 @@
+# PB Trade Log — GitHub Pages 配信 (自動リトライ付き)
+# 目的: GitHub Pages 配信バックエンドの間欠障害 ("Deployment failed, try again later")
+#       に対し、同一run内で deploy を最大3回リトライして自己修復させる。
+# 前提: リポジトリ Settings → Pages → Source を「GitHub Actions」にすること。
+# 注: upload-pages-artifact は .git / .github を自動除外するので、この定義ファイルは配信されない。
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 進行中のデプロイはキャンセルせず順番に処理 (取引ログの取りこぼし防止)
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy1.outputs.page_url || steps.deploy2.outputs.page_url || steps.deploy3.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+      # ---- deploy を最大3回試行 (GitHub側の一時失敗を吸収) ----
+      - name: Deploy (attempt 1)
+        id: deploy1
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Wait before retry 2
+        if: steps.deploy1.outcome == 'failure'
+        run: sleep 45
+
+      - name: Deploy (attempt 2)
+        id: deploy2
+        if: steps.deploy1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Wait before retry 3
+        if: steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure'
+        run: sleep 60
+
+      - name: Deploy (attempt 3, final)
+        id: deploy3
+        if: steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure'
+        uses: actions/deploy-pages@v4
